@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link th:replace="fragments/header :: bootstrap">
+
+    <title th:text="'Car: ' + ${car.reg}">Title</title>
+</head>
+<body>
+
+    <div class="container">
+        <nav th:replace="fragments/header :: navbar"></nav>
+
+        <h2>Edit Car</h2>
+
+        <div class="jumbotron">
+            <form th:action="@{'/cars/edit/' + ${car.id} }" th:object="${car}" method="post">
+                <div class="form-group">
+                    <label for="regNumber">Reg number</label>
+                    <input type="text" class="form-control" id="regNumber" aria-describedby="regNumber" th:field="*{reg}" >
+                </div>
+                <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <input type="text" class="form-control" id="brand" aria-describedby="brand" th:field="*{brand}" >
+                </div>
+                <div class="form-group">
+                    <label for="color">Color</label>
+                    <input type="text" class="form-control" id="color" aria-describedby="color" th:field="*{color}" >
+                </div>
+                <div class="form-group">
+                    <label for="maxSpeed">Max Speed</label>
+                    <input type="number" class="form-control" id="maxSpeed" aria-describedby="max-speed" th:field="*{maxSpeed}" min="0">
+                </div>
+
+                <button type="submit" class="btn btn-warning">Edit</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
