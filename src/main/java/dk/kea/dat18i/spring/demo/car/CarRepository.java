@@ -3,8 +3,14 @@ package dk.kea.dat18i.spring.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -30,8 +36,24 @@ public class CarRepository {
     }
 
     public void addCar(Car car) {
-        String sql = "INSERT INTO cars (reg, brand, color, max_speed) " + "VALUES(?, ?, ?, ?)";
-        jdbc.update(sql, car.getReg(), car.getBrand(), car.getColor(), car.getMaxSpeed());
+        String sql = "INSERT INTO cars (reg, brand, color, max_speed) VALUES(?, ?, ?, ?)";
+//        jdbc.update(sql, car.getReg(), car.getBrand(), car.getColor(), car.getMaxSpeed());
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbc.update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                // tell preparedStatement after "," what column to get back => id
+                PreparedStatement ps = connection.prepareStatement(sql, new String[] {"id"});
+                ps.setString(1, car.getReg());
+                ps.setString(2, car.getBrand());
+                ps.setString(3, car.getColor());
+                ps.setDouble(4, car.getMaxSpeed());
+                return ps;
+            }
+        }, keyHolder);
+
+        System.out.println(keyHolder.getKey().intValue());
     }
 
 
