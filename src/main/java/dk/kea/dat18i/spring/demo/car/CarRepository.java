@@ -1,4 +1,4 @@
-package dk.kea.dat18i.spring.demo;
+package dk.kea.dat18i.spring.demo.car;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
