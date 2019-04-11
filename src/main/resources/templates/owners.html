@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments/header :: head(title='Car Owners')">
+</head>
+<body>
+
+    <div class="container">
+        <nav th:replace="fragments/header :: navbar"></nav>
+
+        <h2>Owners</h2>
+
+
+        <h3>Add Owner</h3>
+        <div class="jumbotron">
+            <form th:object="${ownerForm}" method="post">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="name" th:field="*{name}" >
+                </div>
+                <div class="form-group">
+                    <label for="brand">Phone</label>
+                    <input type="text" class="form-control" id="brand" aria-describedby="brand" th:field="*{phone}" >
+                </div>
+                <div class="form-group">
+                    <label for="cars">Owner of:</label>
+                    <select th:field="*{cars}" multiple class="form-control" id="cars">
+                        <th:block th:each="car : ${selectableCars}">
+                            <option th:value="${car.id}" th:text="${car.reg + ': ' + car.brand}"></option>
+                        </th:block>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+
+
+    </div>
+</body>
+</html>
