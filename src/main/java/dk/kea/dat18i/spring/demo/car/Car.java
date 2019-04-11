@@ -1,4 +1,4 @@
-package dk.kea.dat18i.spring.demo;
+package dk.kea.dat18i.spring.demo.car;
 
 public class Car {
 
@@ -56,5 +56,16 @@ public class Car {
 
     public void setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", reg='" + reg + '\'' +
+                ", brand='" + brand + '\'' +
+                ", color='" + color + '\'' +
+                ", maxSpeed=" + maxSpeed +
+                '}';
     }
 }
